@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    font-family: Roboto, sans-serif;
+    padding-top: 3.5em;
+}
+
+header {
+    position: fixed;
+    height: 3.5em;
+    top: 0;
+    left: 0;
+    text-align: center;
+    vertical-align: baseline;
+    background: gray;
+    width: 100%;
+}
+
+h1 {
+	margin: 0;
+	padding: 10px 20px;
+	text-transform: uppercase;
+	font-size: 24px;
+	font-weight: normal;
+	color: white;
+}
+
+h3 {
+    margin: 2em;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    font-size: 14pt;
+    padding: 20px;
+}
+
+li:nth-child(2n){
+	background: #f7f7f7;
+}
+
+div .wrapper {
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    max-width: 100%;
+    width: 90em;
+    
+}
+
+#left {
+    top: 3.5em;
+    bottom: 20px;
+    float: left;
+    width: 40%;
+    margin: 0;
+}
+
+#results {
+    height: 60%;
+    top: 6em;
+    /*bottom: 100px;*/
+    right: 120px;
+    float: right;
+    position: fixed;
+    width: 40%;
+    vertical-align: middle;
+}
+
+#artist {
+    float: left;
+    font-style: bold;
+}
+
+#date {
+    float: right;
+    text-align: right;
+    font-size: 12pt;
+    font-style: italic;
+    text-transform: important;
+}
+
+.cover {
+    width: 250px;
+    height: 250px;
+    display: inline-block;
+    background-size: cover;
+    margin: 5px;
+}
+.cover:hover {
+    cursor: pointer;
+}
+.cover.playing {
+    border: 5px solid #e45343;
+}
+
+.results {
+    
+}
