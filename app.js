@@ -86,7 +86,7 @@ app.get("/test", function(req, res){
     res.render("index", {artists: artistData, username: response});  
 });
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(process.env.PORT, function(){
     console.log("Test Server Has Started!");
 });
 
