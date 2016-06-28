@@ -94,7 +94,7 @@ app.listen(process.env.PORT, process.env.IP, function(){
 
 // scrape independentSF
 var pullAndScrape = function(callback){
-  var url = 'http://www.theindependentsf.com/';
+  var url = 'http://theindependentsf.com/';
   var links;
   var artistData = [];
 
