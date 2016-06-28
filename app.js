@@ -96,6 +96,7 @@ var pullAndScrape = function(callback){
     });
     
     callback(artistData);
+    
   });
 }
 
@@ -105,11 +106,15 @@ var testRequest = function(callback){
   var artistData = [];
 
   request(url, function(err, resp, body){
-    if(err) console.log(err);
+    if(err) {
+      console.log(err);
+      callback(err);
+    }
+    else {
+      var $ = cheerio.load(body);
     
-    var $ = cheerio.load(body);
-    
-    callback(body);
+      callback(body);
+    }
   });
 }
 
