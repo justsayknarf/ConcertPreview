@@ -44,7 +44,10 @@ var response;
 var url = 'http://www.theindependentsf.com/';
 
 request(url, function(err, resp, body){
-    if(err) console.log(err);
+    if(err) { 
+      console.log(err);
+      response = err;
+    }
     
     var $ = cheerio.load(body);
     response = resp.statusCode;
