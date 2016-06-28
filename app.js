@@ -39,40 +39,6 @@ app.use(express.static(__dirname + '/public'));
 ////// ROUTES
 //////////////////////////////////
 
-var artistData = []; 
-var response;
-var url = 'http://www.theindependentsf.com/';
-
-request(url, function(err, resp, body){
-    if(err) { 
-      console.log(err);
-      response = err;
-    }
-    
-    var $ = cheerio.load(body);
-    response = resp.statusCode;
-    var everything = $('div.tfly-venue-id-21');
-    var count = $(everything).length;
-    var numAdded = 0;
-    console.log("FOUND " + count + " ARTISTS");
-    
-    // iterate through scraped artists
-    $(everything).each(function(i, element){
-      var dates = $(element).children('div.list-view-details').children('h2.dates').text();
-      var imageLink = "http:" + $(element).children('a').children('img').attr('src');
-      
-      var name = $(element).children('a').children('img').attr('title');
-      var artistName = $(element).children('a').children('img').attr('title');
-      var newArtist = {name: artistName, image: imageLink, date: dates};
-      
-      if (artistData.indexOf(artistName) < 0)
-        artistData.push(artistName);
-
-      artistData[artistName] = newArtist;
-    });
-});
-
-
 // INDEX ROUTE
 app.get("/", function(req, res){
     pullAndScrape(function(arts){
@@ -83,10 +49,12 @@ app.get("/", function(req, res){
 
 // test
 app.get("/test", function(req, res){
-    res.render("index", {artists: artistData, username: response});  
+    testRequest(function(bod){
+      res.send(bod);
+    })
 });
 
-app.listen(process.env.PORT, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Test Server Has Started!");
 });
 
@@ -98,7 +66,7 @@ app.listen(process.env.PORT, function(){
 
 // scrape independentSF
 var pullAndScrape = function(callback){
-  var url = 'http://theindependentsf.com/';
+  var url = 'http://www.theindependentsf.com/';
   var links;
   var artistData = [];
 
@@ -128,6 +96,20 @@ var pullAndScrape = function(callback){
     });
     
     callback(artistData);
+  });
+}
+
+var testRequest = function(callback){
+  var url = 'http://www.theindependentsf.com/';
+  var links;
+  var artistData = [];
+
+  request(url, function(err, resp, body){
+    if(err) console.log(err);
+    
+    var $ = cheerio.load(body);
+    
+    callback(body);
   });
 }
 
