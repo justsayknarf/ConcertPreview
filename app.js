@@ -40,11 +40,16 @@ app.use(express.static(__dirname + '/public'));
 //////////////////////////////////
 
 // INDEX ROUTE
+// app.get("/", function(req, res){
+//     pullAndScrape(function(arts){
+//     console.log(arts);
+//     res.render("index", {artists: arts, username: ""});  
+//   });
+// });
+
 app.get("/", function(req, res){
-    pullAndScrape(function(arts){
-    console.log(arts);
-    res.render("index", {artists: arts, username: ""});  
-  });
+  res.send("Hello world!");
+
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
