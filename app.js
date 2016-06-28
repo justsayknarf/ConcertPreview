@@ -39,6 +39,36 @@ app.use(express.static(__dirname + '/public'));
 ////// ROUTES
 //////////////////////////////////
 
+var artistData = []; 
+var url = 'http://www.theindependentsf.com/';
+
+request(url, function(err, resp, body){
+    if(err) console.log(err);
+    
+    var $ = cheerio.load(body);
+
+    var everything = $('div.tfly-venue-id-21');
+    var count = $(everything).length;
+    var numAdded = 0;
+    console.log("FOUND " + count + " ARTISTS");
+    
+    // iterate through scraped artists
+    $(everything).each(function(i, element){
+      var dates = $(element).children('div.list-view-details').children('h2.dates').text();
+      var imageLink = "http:" + $(element).children('a').children('img').attr('src');
+      
+      var name = $(element).children('a').children('img').attr('title');
+      var artistName = $(element).children('a').children('img').attr('title');
+      var newArtist = {name: artistName, image: imageLink, date: dates};
+      
+      if (artistData.indexOf(artistName) < 0)
+        artistData.push(artistName);
+
+      artistData[artistName] = newArtist;
+    });
+});
+
+
 // INDEX ROUTE
 app.get("/", function(req, res){
     pullAndScrape(function(arts){
@@ -49,7 +79,7 @@ app.get("/", function(req, res){
 
 // test
 app.get("/test", function(req, res){
-    res.render("index", {artists: {}, username: ""});  
+    res.render("index", {artists: artistData, username: ""});  
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
