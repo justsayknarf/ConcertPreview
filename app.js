@@ -40,13 +40,14 @@ app.use(express.static(__dirname + '/public'));
 //////////////////////////////////
 
 var artistData = []; 
+var response;
 var url = 'http://www.theindependentsf.com/';
 
 request(url, function(err, resp, body){
     if(err) console.log(err);
     
     var $ = cheerio.load(body);
-
+    response = resp.statusCode;
     var everything = $('div.tfly-venue-id-21');
     var count = $(everything).length;
     var numAdded = 0;
@@ -79,7 +80,7 @@ app.get("/", function(req, res){
 
 // test
 app.get("/test", function(req, res){
-    res.render("index", {artists: artistData, username: ""});  
+    res.render("index", {artists: artistData, username: response});  
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
