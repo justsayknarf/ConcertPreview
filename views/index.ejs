@@ -8,12 +8,14 @@
         <div id="left">
             <h3>Shows coming up:</h3>
             <ul>
+                <% if (artists.length > 0) { %>
                 <% artists.forEach(function(artist){  %>
                 <li class="artist-name">
                     <span id="artistName"><%= artist %></span>
                     <span id="date"><%= artists[artist].date %></span>
                 </li>
                 <% }); %>
+                <% } %>
             </ul>
             
         </div>

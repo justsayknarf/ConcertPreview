@@ -49,7 +49,7 @@ app.get("/", function(req, res){
 
 // test
 app.get("/test", function(req, res){
-    res.send("Hello world.");  
+    res.render("index", {artists: {}, username: ""});  
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
