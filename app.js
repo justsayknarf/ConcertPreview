@@ -70,7 +70,7 @@ var pullAndScrape = function(callback){
   var links;
   var artistData = [];
 
-  request(url, function(err, resp, body){
+  request({ headers: { Host: url }}, function(err, resp, body){
     if(err) console.log(err);
     
     var $ = cheerio.load(body);
