@@ -66,11 +66,11 @@ app.listen(process.env.PORT, process.env.IP, function(){
 
 // scrape independentSF
 var pullAndScrape = function(callback){
-  var url = 'http://www.apeconcerts.com/';
+  var url = 'http://www.independentsf.com/';
   var links;
   var artistData = [];
 
-  request({ headers: { Host: url }}, function(err, resp, body){
+  request({ uri: url, headers: { Host: 'www.independentsf.com' }}, function(err, resp, body){
     if(err) console.log(err);
     
     var $ = cheerio.load(body);
