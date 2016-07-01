@@ -110,7 +110,7 @@ var pullAndScrape = function(callback){
 }
 
 var testRequest = function(callback){
-  var url = 'http://www.theindependentsf.com/';
+  var url = 'https://concert-previewer.herokuapp.com/scraper';
   var links;
   var artistData = [];
   console.log("scraping site...");
