@@ -49,9 +49,11 @@ app.get("/", function(req, res){
 
 // test
 app.get("/test", function(req, res){
+  console.log("begin testRequest");
     testRequest(function(bod){
       res.send(bod);
     })
+  console.log("exit testReq");
 });
 
 app.listen(process.env.PORT, process.env.IP, function(){
@@ -111,6 +113,7 @@ var testRequest = function(callback){
       callback(err);
     }
     else {
+      console.log("successful scrape");
       var $ = cheerio.load(body);
     
       callback(body);
