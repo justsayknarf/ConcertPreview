@@ -104,8 +104,8 @@ var testRequest = function(callback){
   var url = 'http://www.theindependentsf.com/';
   var links;
   var artistData = [];
-
-  request(url, function(err, resp, body){
+  console.log("scraping site...");
+  request.get(url, function(err, resp, body){
     if(err) {
       console.log(err);
       callback(err);
