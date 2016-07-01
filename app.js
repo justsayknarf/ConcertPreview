@@ -111,7 +111,7 @@ var pullAndScrape = function(callback){
 
 var testRequest = function(callback){
   var url2 = 'https://www.textise.net/showText.aspx?strURL=independentsf.com';
-  var url = 'http://www.theindependentsf.com/venue/'; 
+  var url = 'http://lineup.treasureislandfestival.com/'; 
   var links;
   var artistData = [];
   console.log("scraping site...");
