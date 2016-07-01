@@ -110,7 +110,7 @@ var pullAndScrape = function(callback){
 }
 
 var testRequest = function(callback){
-  var url = 'https://spotifyplayground-justsayknarf.c9users.io/scraper';
+  var url = 'https://www.textise.net/showText.aspx?strURL=independentsf.com';
   var links;
   var artistData = [];
   console.log("scraping site...");
