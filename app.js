@@ -50,11 +50,18 @@ app.get("/", function(req, res){
 // test
 app.get("/test", function(req, res){
   console.log("begin testRequest");
+    
     testRequest(function(bod){
       res.send(bod);
     })
+    
   console.log("exit testReq");
 });
+
+app.get("/scraper", function(req, res){
+  res.send("hello world!");
+  
+})
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Test Server Has Started!");
