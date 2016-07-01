@@ -111,7 +111,7 @@ var pullAndScrape = function(callback){
 
 var testRequest = function(callback){
   var url2 = 'https://www.textise.net/showText.aspx?strURL=independentsf.com';
-  var url = 'http://lineup.treasureislandfestival.com/'; 
+  var url = 'http://www.apeconcerts.com/'; 
   var links;
   var artistData = [];
   console.log("scraping site...");
@@ -123,7 +123,7 @@ var testRequest = function(callback){
     else {
       console.log("successful scrape");
       var $ = cheerio.load(body);
-    
+      console.log(body);
       callback(body);
     }
   });
