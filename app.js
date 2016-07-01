@@ -110,7 +110,7 @@ var pullAndScrape = function(callback){
 }
 
 var testRequest = function(callback){
-  var url = 'https://concert-previewer.herokuapp.com/scraper';
+  var url = 'https://spotifyplayground-justsayknarf.c9users.io/scraper';
   var links;
   var artistData = [];
   console.log("scraping site...");
