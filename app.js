@@ -75,28 +75,30 @@ app.listen(process.env.PORT, process.env.IP, function(){
 
 // scrape independentSF
 var pullAndScrape = function(callback){
-  var url = 'http://www.independentsf.com/';
+  var url = 'http://www.apeconcerts.com/';
   var links;
   var artistData = [];
 
-  request({ uri: url, headers: { Host: 'www.independentsf.com' }}, function(err, resp, body){
+  request(url, function(err, resp, body){
     if(err) console.log(err);
     
     var $ = cheerio.load(body);
 
-    var everything = $('div.tfly-venue-id-21');
+    var everything = $('div.content-information');
     var count = $(everything).length;
     var numAdded = 0;
     console.log("FOUND " + count + " ARTISTS");
     
     // iterate through scraped artists
     $(everything).each(function(i, element){
-      var dates = $(element).children('div.list-view-details').children('h2.dates').text();
-      var imageLink = "http:" + $(element).children('a').children('img').attr('src');
+      var dates = $(element).find('div.date-show').attr("content");
+      var imageLink = "http:" + $(element).find("div > a > img.img-responsive").attr('src');
       
-      var name = $(element).children('a').children('img').attr('title');
-      var artistName = $(element).children('a').children('img').attr('title');
-      var newArtist = {name: artistName, image: imageLink, date: dates};
+      var name = $(element).find("div.entry").find("h2.show-title").text();
+      var openers = $(element).find("div.entry").find("h3.support").text();
+      var artistName = $(element).find("div.entry").find("h2.show-title").text();
+      var venue = $(element).find("div.entry > div > span").text();
+      var newArtist = {name: artistName, image: imageLink, date: dates, venue: venue};
       
       if (artistData.indexOf(artistName) < 0)
         artistData.push(artistName);

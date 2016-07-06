@@ -1,20 +1,28 @@
 <% include ./partials/header %>
 <div class="container">
     <header class="header">
-        <h1>Current calendar at the Independent</h1>
+        <h1>Current calendar for Bay Area Concerts</h1>
     </header>
     
-    <%= username %>
     <div class="wrapper">
-        <div id="left">
-            <h3>Shows coming up:</h3>
+        <div id="left" class="upcoming-events-list">
+            <header>
+                <h3>Shows coming up at some <span>Bay Area Venues</span></h3>
+            </header>
             <ul>
                 <% if (artists.length > 0) { %>
                 <% artists.forEach(function(artist){  %>
-                <li class="artist-name">
-                    <span id="artistName"><%= artist %></span>
-                    <span id="date"><%= artists[artist].date %></span>
-                </li>
+                <div class="entry">
+                    <div class="row">
+                        <li class="artist-name">
+                            <span id="artistName"><%= artist %></span>
+                            <span id="date"><%= artists[artist].date %></span>
+                            <i><span id="venue"><%= artists[artist].venue %></span></i>
+                        </li>
+                    </div>
+                </div>
+                
+                
                 <% }); %>
                 <% } %>
             </ul>
