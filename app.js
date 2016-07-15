@@ -113,7 +113,8 @@ var pullAndScrape = function(callback){
 
 var testRequest = function(callback){
   var url2 = 'https://www.textise.net/showText.aspx?strURL=independentsf.com';
-  var url = 'http://www.apeconcerts.com/'; 
+  var url3 = 'http://www.apeconcerts.com/'; 
+  var url = 'http://theindependentsf.com/'
   var links;
   var artistData = [];
   console.log("scraping site...");
