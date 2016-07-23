@@ -3,7 +3,7 @@
 // find template and compile it
 var templateSource = document.getElementById('results-template').innerHTML,
     template = Handlebars.compile(templateSource),
-    resultsPlaceholder = document.getElementById('results'),
+    resultsPlaceholder = $("#results"),
     playingCssClass = 'playing',
     audioObject = null;
 
@@ -25,7 +25,13 @@ var searchAlbums = function (query) {
             limit: 6
         },
         success: function (response) {
-            resultsPlaceholder.innerHTML = template(response);
+            resultsPlaceholder.html(template(response));
+            resultsPlaceholder.addClass("resultsLayer");
+            
+            $("#closelink").on('click', function(e){
+              resultsPlaceholder.html("");
+              resultsPlaceholder.removeClass("resultsLayer");
+            });
         }
     });
 };
@@ -61,7 +67,7 @@ results.addEventListener('click', function (e) {
 // }, false);
 
 
-$("ul").on('click', "li", function(e) {
+$("#artist-list").on('click', ".artist > .nameContainer", function(e) {
 	// console.log($(this).children('span#artistName').text());
-	searchAlbums($(this).children('span#artistName').text());	
+	searchAlbums($(this).find('span#artistName').text());
 });

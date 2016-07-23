@@ -1,43 +1,68 @@
 <% include ./partials/header %>
-<div class="container">
-    <header class="header">
-        <h1>Current calendar for Bay Area Concerts</h1>
+
+
+
+<div class="mainContainer">
+    <header id="header">
+        <h1>ConcertBite: <span>Bay Area Venues</span></h1>
+        <!--<ul>-->
+        <!--    <li class="buttons">-->
+        <!--        <a class="btn btn-primary">refresh</a>-->
+        <!--    </li>-->
+            
+        <!--</ul>-->
+        
     </header>
     
-    <div class="wrapper">
-        <div id="left" class="upcoming-events-list">
-            <header>
-                <h1>Shows coming up at some <span>Bay Area Venues</span></h1>
-            </header>
-            <ul>
-                <% if (artists.length > 0) { %>
-                <% artists.forEach(function(artist){  %>
-                <div class="entry">
-                    <div class="row">
-                        <li class="artist-name">
-                            <span id="artistName"><%= artist %></span>
-                            <span id="date"><%= artists[artist].date %></span>
-                            <i><span id="venue"><%= artists[artist].venue %></span></i>
-                        </li>
-                    </div>
+    <div class="container" id="title">LOGO - ALL APE CONCERTS</div>
+    
+    <div class="container" id="artist-list"> 
+
+        <% artists.forEach(function(artist){  %>
+
+        <div class="artist">
+            <div class="nameContainer"> 
+                <span id="artistName"><%= artist.name %></span>
+                <img src="<%= artist.image %>" height="100" width="100">
+            </div>
+            
+            <div class="artistDetailContainer">
+                <div class="album">
+                    Latest Album: 
+                    <img src="" height="100" width="100">
+                </div>
+                <div class="genre">
+                    Genre: 
+                </div>
+                <div class="venue">
+                    <span id="venue">Venue: @ <%= artist.venue %></span> 
                 </div>
                 
-                
-                <% }); %>
-                <% } %>
-            </ul>
-            
+            </div>
+            <div class="concertDate">
+                <span id="date"><%= artist.dates %></span>
+            </div>
         </div>
-        <div id="results">
-        </div>
+
+        
+        <% }); %>
         
     </div>
+
+        
+    
 </div>
+
+    <div id="results">
+    </div>
 
     <script id="results-template" type="text/x-handlebars-template">
         {{#each albums.items}}
         <div style="background-image:url({{images.0.url}})" data-album-id="{{id}}" class="cover"></div>
         {{/each}}
+        <div>
+        <a id="closelink">close</a>
+        </div>
     </script>
 
 <% include ./partials/footer %>

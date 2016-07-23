@@ -1,16 +1,20 @@
 var express     = require("express"),
     app         = express(),
     request     = require('request'),
+    mongoose    = require('mongoose'),
+    moment      = require('moment'),
     cheerio     = require('cheerio');
+
+var seedDB      = require("./seeds.js");
 
 var request = require('request'); // "Request" library
 
 // var cookieParser = require('cookie-parser');
 
-// var Artist = require("./models/artist");
-// var Track = require("./models/track");
+var Artist = require("./models/artist");
+var Track = require("./models/track");
 
-// mongoose.connect("mongodb://localhost/playground");
+mongoose.connect("mongodb://localhost/playground");
 
 // SPOTIFY APP CREDENTIALS
 // var client_id = '34a85c702fff409c88475a24dc7c85f8'; // Your client id
@@ -35,15 +39,28 @@ var stateKey = 'spotify_auth_state';
 app.use(express.static(__dirname + '/public'));
 
 
+// Seed the Database
+// seedDB();    
+
+
 //////////////////////////////////
 ////// ROUTES
 //////////////////////////////////
 
 // INDEX ROUTE
 app.get("/", function(req, res){
+    // Artist.find().sort('dates').exec(function(err, allArtists){
+    //     if(err){
+    //         console.log(err);
+    //     } else {
+    //         console.log(allArtists);
+    //         res.render("index", {artists: allArtists, username: ""});
+    //     }
+    // });
+
     pullAndScrape(function(arts){
-      console.log(arts);
-      res.render("index", {artists: arts, username: ""});  
+        console.log(arts);
+        res.render("index", {artists: arts, username: ""});  
     });
 });
 
@@ -92,18 +109,33 @@ var pullAndScrape = function(callback){
     // iterate through scraped artists
     $(everything).each(function(i, element){
       var dates = $(element).find('div.date-show').attr("content");
+      // dates = moment(dates, "MMMMDDYYYY").format("MMDDYYYY");
+      
       var imageLink = "http:" + $(element).find("div > a > img.img-responsive").attr('src');
       
       var name = $(element).find("div.entry").find("h2.show-title").text();
       var openers = $(element).find("div.entry").find("h3.support").text();
       var artistName = $(element).find("div.entry").find("h2.show-title").text();
       var venue = $(element).find("div.entry > div > span").text();
-      var newArtist = {name: artistName, image: imageLink, date: dates, venue: venue};
+      var newArtist = {name: artistName, image: imageLink, dates: dates, venue: venue};
       
-      if (artistData.indexOf(artistName) < 0)
-        artistData.push(artistName);
+      var newArtistDbEntry = new Artist({name: artistName, image: imageLink, dates: dates, venue: venue});
+      
+      
+      
+      if (artistData.indexOf(artistName) < 0) {
+        
+        Artist.create(newArtistDbEntry, function(err, createdArtist){
+           if (err){
+                console.log("SOMETHING WENT WRONG: " + err);
+              } else {
+                console.log("saved artist to db: " + createdArtist.name + createdArtist.dates );
+              }
+        })
+      }
+      
+      artistData.push(newArtistDbEntry); 
 
-      artistData[artistName] = newArtist;
     });
     
     callback(artistData);
