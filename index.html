@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="concertbite">
+<head>
+	<title>Bay Area ConcertBite</title>
+
+	<!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+
+	<!-- Foundation -->
+	<link rel="stylesheet" href="stylesheets/foundation.css">
+	<script src="scripts/foundation.js"></script>
+
+	<!-- Angular -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script> 
+
+	<!-- FontAwesome -->
+	<script src="https://use.fontawesome.com/0a3f31b4cd.js"></script>
+
+	<link href="https://fonts.googleapis.com/css?family=Abel|Poiret+One" rel="stylesheet">
+
+    <link rel="stylesheet" href="stylesheets/app.css">    
+</head>
+
+<body ng-controller="ConcertsController as cons" >
+<div class="mainContainer">
+	<header> 
+		<div class="row">
+			<div class="small-12 medium-6 large-4 columns">
+				<h2>Concert Bite</h2>
+			</div>
+			<div class="small-12 medium-6 large-8 columns">
+				<div class="search">
+				  <span class="fa fa-search"></span>
+			      <input type="search" placeholder="Search">
+		      	</div>
+		    </div>
+		</div>
+	</header>
+
+	<loading></loading>
+
+	<div class="row small-up-1 medium-up-1 large-up-1 listContainer">
+        <div ng-repeat="artist in artists" class="columns" >
+        	<div ng-click="loadExtra($index, artist.name)" class="row concertContainer">
+	            <div class="large-4 medium-12 small-12 columns">
+		            <div class="imgContainer gradient-wrap">
+		            	<img src={{artist.image}} class="thumb">
+		            </div>
+	            </div>
+	            <div class="large-6 medium-8 small-12 columns">
+	            	<div class="metaContainer">
+	            		<h1>{{artist.name}}</h1>
+	            		<h3>Latest Album: </h3>
+	            		<p>Genre: <span ng-repeat="genre in artist.spotifyArtist.genres"> {{ genre }} </span></p>
+
+	            	</div>
+	            </div>
+	            <div class="large-2 medium-4 small-12 columns">
+	            	<p class="date"> {{ artist.dates | date : 'MMM d' }} </p>
+	        	</div>
+	        </div>
+	        <div ng-show="artistExtra[$index]" class="extraDetails">
+        		<div class="row">
+        			<h3>Preview:</h3>
+        		</div>
+        		<ul class="small-up-1 medium-up-2 large-up-3">
+        			<li class="column center albumContainer" ng-repeat="album in albums[$index]">
+        				<div ng-click=playSong(album)  style="background-image:url({{ album.images[0].url }})" data-album-id="{{album.id}}" class="albumCover">
+        					{{ album.name }}
+        				</div>
+        			</li>
+        		</ul>
+        		<div class="row">
+	        		<h3>Similar Artists:</h3>
+	        		<ul class="similarArtists">
+	        			<li ng-repeat="related in artist.relatedArtists">
+	        				<a ng-click=loadSimilar(related.name)>{{ related.name }}</a>
+	        			</li>
+	        		</ul>
+        		</div>
+	        </div>
+		</div>
+	</div>
+</div>
+<div class="nowplaying" ng-show="playing">
+	<img src="{{ playingAlbum.images[0].url}}">
+</div>
+
+<script type="text/javascript" src="scripts/main.js"></script>
+</body>
+</html>

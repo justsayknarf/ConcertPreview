@@ -1,5 +1,4 @@
 
-
 // find template and compile it
 var templateSource = document.getElementById('results-template').innerHTML,
     template = Handlebars.compile(templateSource),
@@ -36,6 +35,28 @@ var searchAlbums = function (query) {
     });
 };
 
+
+var findGenre = function (query) {
+    $.ajax({
+        url: 'https://api.spotify.com/v1/search',
+        data: {
+            q: query,
+            type: 'artist',
+            limit: 1
+        },
+        success: function (response) {
+            var artistName = query.trim();
+            // console.log(artistName);
+            console.log(response);
+            // var genres = response.genres.join(", ");
+            // return genres;
+            // $('#' + artistName).find(".genre").text("Genre: " + genres);
+            
+        }
+    });
+};
+
+
 results.addEventListener('click', function (e) {
     var target = e.target;
     if (target !== null && target.classList.contains('cover')) {
@@ -70,4 +91,13 @@ results.addEventListener('click', function (e) {
 $("#artist-list").on('click', ".artist > .nameContainer", function(e) {
 	// console.log($(this).children('span#artistName').text());
 	searchAlbums($(this).find('span#artistName').text());
+});
+
+
+$( ".artist" ).each(function( index ) {
+    var name = $(this).find('span#artistName');
+    var genresString = findGenre(name);
+    console.log(genresString);
+    
+    $( this ).find("div.genre").text("Genre: " + genresString);
 });
