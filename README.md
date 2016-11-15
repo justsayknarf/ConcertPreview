@@ -1,3 +1,7 @@
 # ConcertPreview
 
-A small app that scrapes concert venue sites and plays 30s previews using the Spotify API. 
+First project using Node to scrape concert sites for data, integrating with Spotify API to allow users to quickly preview the music of upcoming artists. 
+
+MEAN stack.
+
+
